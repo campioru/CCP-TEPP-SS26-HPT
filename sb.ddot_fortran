@@ -1,0 +1,48 @@
+#!/bin/bash -l
+#SBATCH --job-name=ddot-fortran
+#SBATCH --time=0-10:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=32
+#SBATCH --mem=90G
+
+# Your HPC system will probably differ.
+# Load the same modules you compiled with if needed.
+
+module reset
+module load foss
+
+#ulimit -s unlimited
+
+# Raw fortran dot product
+
+./dot_product_fortran
+
+# Opt dot_product( x, y ) function
+
+./dot_product_fortran_opt
+
+# OpenMP runs
+
+./dot_product_fortran_openmp 1
+
+./dot_product_fortran_openmp 4
+
+./dot_product_fortran_openmp 8
+
+./dot_product_fortran_openmp 16
+
+./dot_product_fortran_openmp 32
+
+# MPI runs
+
+mpirun -np 1 dot_product_fortran_mpi
+
+mpirun -np 4 dot_product_fortran_mpi
+
+mpirun -np 8 dot_product_fortran_mpi
+
+mpirun -np 16 dot_product_fortran_mpi
+
+mpirun -np 32 dot_product_fortran_mpi
+
+

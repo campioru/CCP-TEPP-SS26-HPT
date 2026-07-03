@@ -1,0 +1,20 @@
+#!/bin/bash -l
+#SBATCH --job-name=matmult-R
+#SBATCH --time=0-1:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --mem=20G
+
+# Your HPC system will probably differ.
+# Load the same modules you compiled with if needed.
+
+module reset
+module load R
+
+Rscript matmult.R 100
+
+Rscript matmult.R 1000
+
+Rscript matmult.R 10000
+
+

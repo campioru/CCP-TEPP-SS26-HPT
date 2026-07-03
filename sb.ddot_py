@@ -1,0 +1,24 @@
+#!/bin/bash -l
+#SBATCH --job-name=ddot-python
+#SBATCH --time=0-1:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=32
+#SBATCH --mem=90G
+
+# Your HPC system will probably differ.
+
+module reset
+module load Python/3.7.4-GCCcore-8.3.0
+source ~/.virtualenvs/python-3.7.4/bin/activate
+
+time python dot_product_threaded.py 1
+
+time python dot_product_threaded.py 4
+
+time python dot_product_threaded.py 8
+
+time python dot_product_threaded.py 16
+
+time python dot_product_threaded.py 32
+exit
+

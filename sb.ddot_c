@@ -1,0 +1,42 @@
+#!/bin/bash -l
+#SBATCH --job-name=ddot
+#SBATCH --time=0-10:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=32
+#SBATCH --mem=90G
+#SBATCH --nodelist=wizard23
+
+# Your HPC system will probably differ.
+# Load the same modules you compiled with if needed.
+
+module reset
+module load foss
+
+# Test the raw C code
+
+./dot_product_c
+
+# Test the C OpenMP code
+
+./dot_product_c_openmp 1
+
+./dot_product_c_openmp 4
+
+./dot_product_c_openmp 8
+
+./dot_product_c_openmp 16
+
+./dot_product_c_openmp 32
+
+# Test the C MPI code
+
+mpirun -np 1 dot_product_c_mpi
+
+mpirun -np 4 dot_product_c_mpi
+
+mpirun -np 8 dot_product_c_mpi
+
+mpirun -np 16 dot_product_c_mpi
+
+mpirun -np 32 dot_product_c_mpi
+

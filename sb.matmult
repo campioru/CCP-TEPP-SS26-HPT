@@ -1,0 +1,26 @@
+#!/bin/bash -l
+#SBATCH --job-name=matmult-c
+#SBATCH --time=0-1:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --mem=20G
+
+# Your HPC system will probably differ.
+# Load the same modules you compiled with if needed.
+
+module reset
+module load foss
+
+matmult_c 10
+matmult_cblas 10
+
+matmult_c 100
+matmult_cblas 100
+
+matmult_c 1000
+matmult_cblas 1000
+
+matmult_c 10000
+matmult_cblas 10000
+
+

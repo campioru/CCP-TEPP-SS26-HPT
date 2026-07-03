@@ -1,0 +1,25 @@
+#!/bin/bash -l
+#SBATCH --job-name=ddot-py-mpi
+#SBATCH --time=0-1:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=32
+#SBATCH --mem=90G
+
+# Your HPC system will probably differ.
+# Load the same modules you compiled with if needed.
+
+module reset
+module load iomkl
+module load Python/3.7.4-GCCcore-8.3.0
+source ~/.virtualenvs/python-3.7.4/bin/activate
+
+time mpirun -np 1 python dot_product_message_passing.py
+
+time mpirun -np 4 python dot_product_message_passing.py
+
+time mpirun -np 8 python dot_product_message_passing.py
+
+time mpirun -np 16 python dot_product_message_passing.py
+
+time mpirun -np 32 python dot_product_message_passing.py
+
